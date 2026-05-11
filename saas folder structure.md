@@ -1,235 +1,138 @@
-Below is a **production-ready SaaS folder structure for a modern app built with Next.js** using the App Router. This structure separates **marketing pages, authentication, dashboard, API, database logic, and services** so the project stays maintainable as it grows.
+# Auth-Focused SaaS Structure
 
----
-
-# Production SaaS Folder Structure
-
-```
+```text id="c9n7yh"
 saas-app/
 │
-├─ app/                         # Next.js App Router
-│   ├─ (marketing)/             # Public website
-│   │   ├─ page.tsx             # Landing page
+├─ app/
+│   │
+│   ├─ (marketing)/
+│   │   ├─ page.tsx
 │   │   ├─ pricing/
-│   │   │   └─ page.tsx
-│   │   ├─ blog/
 │   │   └─ contact/
 │   │
-│   ├─ (auth)/                  # Authentication pages
+│   ├─ (auth)/
+│   │   │
 │   │   ├─ login/
 │   │   │   └─ page.tsx
+│   │   │
 │   │   ├─ signup/
 │   │   │   └─ page.tsx
-│   │   └─ reset-password/
-│   │
-│   ├─ (dashboard)/             # Main SaaS application
-│   │   ├─ layout.tsx           # Dashboard layout
-│   │   ├─ page.tsx             # Dashboard home
-│   │   ├─ clients/
+│   │   │
+│   │   ├─ verify-email/
 │   │   │   ├─ page.tsx
-│   │   │   └─ [id]/
+│   │   │   ├─ confirm/
+│   │   │   │   └─ page.tsx
+│   │   │   └─ success/
 │   │   │       └─ page.tsx
-│   │   ├─ messages/
-│   │   │   └─ page.tsx
-│   │   ├─ files/
-│   │   │   └─ page.tsx
-│   │   ├─ billing/
-│   │   │   └─ page.tsx
-│   │   └─ settings/
+│   │   │
+│   │   ├─ forgot-password/
+│   │   │   ├─ page.tsx
+│   │   │   ├─ confirm/
+│   │   │   │   └─ page.tsx
+│   │   │   └─ success/
+│   │   │       └─ page.tsx
+│   │   │
+│   │   ├─ reset-password/
+│   │   │   ├─ page.tsx
+│   │   │   └─ success/
+│   │   │       └─ page.tsx
+│   │   │
+│   │   └─ verify-email-required/
+│   │       └─ page.tsx
 │   │
-│   ├─ api/                     # Backend API routes
-│   │   ├─ auth/
-│   │   ├─ clients/
-│   │   │   ├─ create/
-│   │   │   ├─ update/
-│   │   │   └─ delete/
-│   │   ├─ messages/
-│   │   ├─ files/
+│   ├─ (dashboard)/
+│   │   ├─ layout.tsx
+│   │   ├─ page.tsx
+│   │   ├─ settings/
 │   │   └─ billing/
 │   │
-│   ├─ layout.tsx               # Global layout
-│   └─ globals.css
+│   ├─ api/
+│   │   │
+│   │   ├─ auth/
+│   │   │   ├─ signup/
+│   │   │   │   └─ route.ts
+│   │   │   ├─ login/
+│   │   │   │   └─ route.ts
+│   │   │   ├─ logout/
+│   │   │   │   └─ route.ts
+│   │   │   ├─ verify-email/
+│   │   │   │   └─ route.ts
+│   │   │   ├─ resend-verification/
+│   │   │   │   └─ route.ts
+│   │   │   ├─ forgot-password/
+│   │   │   │   └─ route.ts
+│   │   │   └─ reset-password/
+│   │   │       └─ route.ts
+│   │
+│   ├─ layout.tsx
+│   ├─ globals.css
+│   └─ favicon.ico
 │
-├─ components/                  # Reusable UI components
-│   ├─ ui/                      # Buttons, inputs, cards
-│   ├─ dashboard/
-│   ├─ forms/
-│   └─ navigation/
+├─ components/
+│   │
+│   ├─ ui/
+│   │
+│   ├─ auth/
+│   │   ├─ login-form.tsx
+│   │   ├─ signup-form.tsx
+│   │   ├─ forgot-password-form.tsx
+│   │   ├─ reset-password-form.tsx
+│   │   ├─ resend-verification-form.tsx
+│   │   └─ verify-email-card.tsx
+│   │
+│   └─ dashboard/
+│       ├─ sidebar.tsx
+│       ├─ navbar.tsx
+│       └─ dashboard-shell.tsx
 │
-├─ lib/                         # Core utilities
-│   ├─ db.ts                    # DB connection
-│   ├─ auth.ts                  # auth config
-│   ├─ stripe.ts                # billing logic
-│   ├─ permissions.ts           # feature gating
-│   └─ utils.ts
+├─ lib/
+│   │
+│   ├─ prisma/
+│   │   └─ prisma.ts
+│   │
+│   ├─ auth/
+│   │   ├─ auth.ts
+│   │   ├─ session.ts
+│   │   ├─ cookies.ts
+│   │   ├─ current-user.ts
+│   │   └─ guards.ts
+│   │
+│   ├─ crypto/
+│   │   ├─ password.ts
+│   │   ├─ token.ts
+│   │   └─ session.ts
+│   │
+│   ├─ validations/
+│   │   └─ auth.validation.ts
+│   │
+│   ├─ api/
+│   │   ├─ api-response.ts
+│   │   ├─ api-success.ts
+│   │   ├─ api-error.ts
+│   │   └─ auth-fetch.ts
+│   │
+│   ├─ email/
+│   │   ├─ resend.ts
+│   │   ├─ send-email.ts
+│   │   ├─ resend-verification-email.ts
+│   │   │
+│   │   └─ templates/
+│   │       ├─ verify-email.tsx
+│   │       └─ forgot-password.tsx
 │
-├─ models/                      # Database models/schemas
-│   ├─ User.ts
-│   ├─ Client.ts
-│   ├─ Message.ts
-│   ├─ File.ts
-│   └─ Subscription.ts
+├─ prisma/
+│   │
+│   ├─ schema.prisma
+│   │
+│   └─ migrations/
 │
-├─ services/                    # Business logic layer
-│   ├─ clientService.ts
-│   ├─ messageService.ts
-│   ├─ fileService.ts
-│   └─ billingService.ts
+├─ middleware.ts
 │
-├─ hooks/                       # React hooks
-│   ├─ useUser.ts
-│   ├─ useClients.ts
-│   └─ useSubscription.ts
+├─ public/
 │
-├─ middleware.ts                # Auth protection
-│
-├─ types/                       # TypeScript types
-│   ├─ user.ts
-│   ├─ client.ts
-│   └─ api.ts
-│
-├─ config/                      # App configuration
-│   ├─ plans.ts                 # SaaS plans
-│   └─ features.ts              # feature flags
-│
-├─ public/                      # Static files
-│
-├─ scripts/                     # DB seeds / jobs
-│
-├─ .env.local                   # Environment variables
-├─ next.config.js
+├─ .env
+├─ .env.local
+├─ next.config.ts
+├─ tsconfig.json
 └─ package.json
 ```
-
----
-
-# Why This Structure Works
-
-### 1. Marketing vs App Separation
-
-```
-(marketing)
-(auth)
-(dashboard)
-```
-
-This allows **landing pages and the SaaS app to live together but stay organized**.
-
----
-
-### 2. Business Logic Layer
-
-Instead of putting everything in API routes:
-
-```
-API → services → database
-```
-
-Example:
-
-```
-api/clients/create → clientService → MongoDB
-```
-
-This makes the code **reusable and testable**.
-
----
-
-### 3. Models for Database
-
-If using **MongoDB** with **Mongoose**:
-
-```
-models/
-   User
-   Client
-   Message
-   File
-```
-
-Keeps schema definitions clean.
-
----
-
-# Example Data Flow
-
-User creates a client:
-
-```
-Dashboard form
-   ↓
-POST /api/clients/create
-   ↓
-clientService.ts
-   ↓
-MongoDB
-```
-
----
-
-# Example SaaS Feature System
-
-Inside:
-
-```
-config/plans.ts
-```
-
-```
-Free
-Pro
-Business
-```
-
-Example:
-
-```
-Free → 3 clients
-Pro → 50 clients
-Business → unlimited
-```
-
----
-
-# SaaS Infrastructure (Typical)
-
-A modern SaaS stack often uses:
-
-Database
-→ MongoDB
-
-Hosting
-→ Vercel
-
-Payments
-→ Stripe
-
-Storage
-→ Amazon Web Services S3
-
----
-
-# Important Production Features
-
-A real SaaS should include:
-
-✔ authentication
-✔ role permissions
-✔ plan feature gating
-✔ billing system
-✔ rate limiting
-✔ logging
-✔ analytics
-
----
-
-💡 **Pro tip:**
-Large SaaS apps eventually split into **three apps**:
-
-```
-marketing site
-dashboard app
-backend API
-```
-
-But early-stage SaaS works perfectly in **one Next.js project**.
